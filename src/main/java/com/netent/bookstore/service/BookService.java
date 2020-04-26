@@ -85,7 +85,7 @@ public class BookService {
             Book book = bookRepository.findBookByIsbn(isbn);
             if(book==null){
                 logger.error(ErrorMessages.NO_BOOK_FOUND_WITH_ISBN_EXCEPTION + book.getIsbn());
-                throw new BookStoreException(ErrorMessages.NO_BOOK_FOUND_WITH_ISBN_EXCEPTION +isbn, null);
+                throw new BookStoreException(ErrorMessages.NO_BOOK_FOUND_WITH_ISBN_EXCEPTION +isbn, HttpStatus.BAD_REQUEST);
             }
             mediaPostTitles = mediaService.getMediaPostsTitles(book.getTitle());
         }catch (DataAccessException e){

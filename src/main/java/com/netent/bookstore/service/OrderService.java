@@ -39,7 +39,7 @@ public class OrderService {
 
             if(bookInventory==null){
                 logger.error(ErrorMessages.NO_BOOK_FOUND_WITH_ID_EXCEPTION + bookOrder.getBookId());
-                throw new BookStoreException(ErrorMessages.NO_BOOK_FOUND_WITH_ID_EXCEPTION +bookOrder.getBookId(), null);
+                throw new BookStoreException(ErrorMessages.NO_BOOK_FOUND_WITH_ID_EXCEPTION +bookOrder.getBookId(), HttpStatus.BAD_REQUEST);
             }
 
             bookOrder.setPrice(bookInventory.getPrice());
