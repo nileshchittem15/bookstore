@@ -20,7 +20,7 @@ The application will start running on 8080 port
 
 # Docker Build
 
-docker pull nileshreddy/bookstore:2
+docker pull nileshreddy/bookstore:3
 docker run -p 8080:80 bookstore
 
 The application will start running on 8080 port
