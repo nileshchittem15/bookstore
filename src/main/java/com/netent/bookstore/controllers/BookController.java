@@ -21,6 +21,12 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+
+    /**
+     * Add a new book and its details
+     * @param book
+     * @return
+     */
     @PostMapping
     public ServiceResponse addBook(@Valid @RequestBody Book book){
 
@@ -33,6 +39,11 @@ public class BookController {
 
     }
 
+    /**
+     * Search for books using ISBN or Partial title or Partial author name
+     * @param searchRequest
+     * @return
+     */
     @GetMapping
     public ServiceResponse searchBook(SearchRequest searchRequest){
 
@@ -50,6 +61,11 @@ public class BookController {
 
     }
 
+    /**
+     * Get all media post titles related to the book
+     * @param isbn
+     * @return
+     */
     @GetMapping(value = URLConstants.MEDIA_POST)
     public ServiceResponse getMediaPosts(@RequestParam String isbn){
 

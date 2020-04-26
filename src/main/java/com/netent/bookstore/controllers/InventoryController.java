@@ -17,6 +17,11 @@ public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
 
+    /**
+     * Update the book stock of the inventory
+     * @param stockRequest
+     * @return
+     */
     @PutMapping
     public ServiceResponse addBookStock(@Valid @RequestBody StockRequest stockRequest){
 

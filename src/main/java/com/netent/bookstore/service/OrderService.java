@@ -32,6 +32,14 @@ public class OrderService {
     @Autowired
     private InventoryService inventoryService;
 
+    /**
+     * Adds an book order given book id and quantity. Updates the inventory according to the order quantity
+     * Note:
+     * 1. order is successful only if given quantity is less than the quantity present in inventory
+     * 2. After the order if quantity becomes 0, it gets refilled asynchronously
+     * @param bookOrder
+     * @return
+     */
     public BookOrder orderBook(BookOrder bookOrder){
 
         try{

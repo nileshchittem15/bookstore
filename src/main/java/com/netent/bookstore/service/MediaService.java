@@ -33,6 +33,10 @@ public class MediaService {
     @Autowired
     private MediaPostRepository mediaPostRepository;
 
+    /**
+     * Schedules a cron every 1 day to fetch media posts from client and update in db.
+     * Note: if the media post id is same then it will get updates
+     */
     @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
     public void updateMediaPosts(){
 
@@ -53,7 +57,11 @@ public class MediaService {
         }
     }
 
-
+    /**
+     * finds all media post titles given book title if present in post title or body
+     * @param title
+     * @return
+     */
     public List<String> getMediaPostsTitles(String title){
 
         List<String> postTitleList = new ArrayList<>();
@@ -70,6 +78,10 @@ public class MediaService {
         return postTitleList;
     }
 
+    /**
+     * Fetch all media posts from the third party client
+     * @return
+     */
     private List<MediaPost> fetchMediaPosts(){
 
         List<MediaPost> mediaPostList;

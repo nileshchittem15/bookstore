@@ -22,6 +22,11 @@ public class InventoryService {
     @Autowired
     private BookInventoryRepository bookInventoryRepository;
 
+    /**
+     * updates the quantity of the book given bookId\
+     * Note: quantity can be positive or negative depending on transaction. Final book stock quantity cannot be less than 0
+     * @param stockRequest
+     */
     public void addBookStock(StockRequest stockRequest){
         try {
             bookInventoryRepository.updateQuantity(stockRequest.getBookId(), stockRequest.getQuantity(), new Timestamp(System.currentTimeMillis()));
@@ -32,6 +37,10 @@ public class InventoryService {
         }
     }
 
+    /**
+     * Refills the stock of book by 1 asynchronously
+     * @param bookId
+     */
     @Async
     public void refillBookStock(String bookId){
         addBookStock(new StockRequest(bookId,1));

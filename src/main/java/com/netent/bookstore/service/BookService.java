@@ -33,6 +33,12 @@ public class BookService {
     @Autowired
     private MediaService mediaService;
 
+    /**
+     * Adds new book and also Adds book details in inventory with 0 quantity
+     * Note: Rolls back transaction if book inventory addition fails
+     * @param book
+     * @return
+     */
     public Book addBook(Book book){
 
         try{
@@ -53,6 +59,11 @@ public class BookService {
     }
 
 
+    /**
+     * Find all books based on search request
+     * @param searchRequest
+     * @return
+     */
     public List<Book> searchBook(SearchRequest searchRequest){
 
         List<Book> bookList = new ArrayList<>();
@@ -77,6 +88,11 @@ public class BookService {
         return bookList;
     }
 
+    /**
+     * Finds all media post titles given book isbn
+     * @param isbn
+     * @return
+     */
     public List<String> getMediaPosts(String isbn){
 
         List<String> mediaPostTitles;
