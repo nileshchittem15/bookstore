@@ -14,14 +14,18 @@ https://docs.google.com/document/d/1BnIwaexe5ToqxHHq-f19EuA4RROKUy4047FjJt7fxNY/
 # Local Build
 
 Requirements : JDK 8, Maven
-Command: mvn clean compile spring-boot:run
 
+Command: 
+```
+mvn clean compile spring-boot:run
+```
 The application will start running on 8080 port
 
 # Docker Build
-
+```
 docker pull nileshreddy/bookstore:3
 docker run -p 8080:80 bookstore
+```
 
 The application will start running on 8080 port
 
