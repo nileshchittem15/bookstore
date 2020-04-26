@@ -3,13 +3,13 @@ package com.netent.bookstore.service;
 import com.netent.bookstore.constants.ErrorMessages;
 import com.netent.bookstore.exception.BookStoreException;
 import com.netent.bookstore.model.MediaPost;
-import com.netent.bookstore.repository.elasticsearch.MediaPostRepository;
+import com.netent.bookstore.repository.MediaPostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.elasticsearch.ElasticsearchException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class MediaService {
     @Autowired
     private MediaPostRepository mediaPostRepository;
 
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay=24 * 60 * 60 * 1000)
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
     public void updateMediaPosts(){
 
         List<MediaPost> mediaPostList = fetchMediaPosts();
@@ -45,9 +45,9 @@ public class MediaService {
         for(MediaPost mediaPost: mediaPostList){
             try {
                 mediaPostRepository.save(mediaPost);
-            }catch (ElasticsearchException e){
-                logger.error(ErrorMessages.ES_EXCEPTION, e);
-                throw new BookStoreException(ErrorMessages.ES_EXCEPTION,
+            }catch (DataAccessException e){
+                logger.error(ErrorMessages.DB_EXCEPTION, e);
+                throw new BookStoreException(ErrorMessages.DB_EXCEPTION,
                     HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
@@ -57,15 +57,14 @@ public class MediaService {
     public List<String> getMediaPostsTitles(String title){
 
         List<String> postTitleList = new ArrayList<>();
-        title = "*"+title+"*";
         try {
-            List<MediaPost> mediaPostList = mediaPostRepository.findMediaPosts(title);
+            List<MediaPost> mediaPostList = mediaPostRepository.findMediaPostsByTitleIgnoreCaseContainingOrBodyIgnoreCaseContaining(title, title);
             for(MediaPost mediaPost:mediaPostList){
                 postTitleList.add(mediaPost.getTitle());
             }
-        }catch (ElasticsearchException e){
-            logger.error(ErrorMessages.ES_EXCEPTION, e);
-            throw new BookStoreException(ErrorMessages.ES_EXCEPTION,
+        }catch (DataAccessException e){
+            logger.error(ErrorMessages.DB_EXCEPTION, e);
+            throw new BookStoreException(ErrorMessages.DB_EXCEPTION,
                 HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return postTitleList;

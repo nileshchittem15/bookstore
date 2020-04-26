@@ -9,7 +9,6 @@ public class ErrorMessages {
     public static final String DB_EXCEPTION = "Exception in database operation";
     public static final String MEDIA_CLIENT_EXCEPTION = "Exception in media post client";
     public static final String NO_BOOK_FOUND_WITH_ISBN_EXCEPTION = "No Book exists with ISBN: ";
-    public static final String ES_EXCEPTION = "Exception in elastic search operation";
     public static final String NO_BOOK_FOUND_WITH_ID_EXCEPTION = "No Book exists with ID: ";
     public static final String INSUFFICIENT_BOOK_QUNATITY_EXCEPTION = "insufficient book quantity";
 }
